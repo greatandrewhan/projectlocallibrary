@@ -16,7 +16,7 @@ function partitionBooksByBorrowedStatus(books) {
   const booksReturned = books.filter((book) =>
     book.borrows.every((borrow) => borrow.returned)
   );
-  let result = [booksBorrowed, booksReturned];
+  let result = [[...booksBorrowed], [...booksReturned]];
   return result;
 }
 

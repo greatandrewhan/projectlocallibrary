@@ -19,6 +19,11 @@ function getBooksBorrowedCount(books) {
   );
 }
 
+/* Helper function to help sorting */
+function sortByOrder(item1, item2) {
+  return item2.count - item1.count;
+}
+
 // should return an ordered list of most common genres
 // should limit the list to the top five
 function getMostCommonGenres(books) {
@@ -28,9 +33,7 @@ function getMostCommonGenres(books) {
     else acc[genre].count++;
     return acc;
   }, {});
-  return Object.values(genres)
-    .sort((a, b) => (a.count < b.count ? 1 : -1))
-    .slice(0, 5);
+  return Object.values(genres).sort(sortByOrder).slice(0, 5);
 }
 
 // should return an ordered list of most popular books
@@ -40,7 +43,7 @@ function getMostPopularBooks(books) {
     .map((book) => {
       return { name: book.title, count: book.borrows.length };
     })
-    .sort((a, b) => (a.count < b.count ? 1 : -1))
+    .sort(sortByOrder)
     .slice(0, 5);
 }
 
@@ -60,7 +63,7 @@ function getMostPopularAuthors(books, authors) {
     });
     result.push(authorList);
   });
-  return result.sort((a, b) => (a.count < b.count ? 1 : -1)).slice(0, 5);
+  return result.sort(sortByOrder).slice(0, 5);
 }
 
 module.exports = {
